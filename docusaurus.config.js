@@ -125,21 +125,12 @@ const config = {
                 label: 'BiliBili',
                 href: 'https://space.bilibili.com/8689588',
               },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
               {
                 label: '博客',
                 href: 'https://www.iseason.top',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
+              }
             ],
-          },
+          }
         ],
         copyright: `Copyright © ${new Date().getFullYear()} by Iseason, Inc. Built with Docusaurus.`,
       },
