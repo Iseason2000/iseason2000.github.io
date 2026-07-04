@@ -19,6 +19,8 @@ sidebar_position: 5
 
 `MySQL` 等同于 `MySQL5`。如果 MySQL 连接经常失败，可以尝试改用 `MariaDB` 驱动连接 MySQL 服务端。
 
+默认配置使用本地 H2，数据文件位于 `plugins/SakuraBind/database/database_sakurabind.mv.db`。小型单服可以直接使用 H2；多服共享暂存箱或需要跨服日志时，建议切换到 MySQL、MariaDB、PostgreSQL 等外部数据库。
+
 ```yaml title="database.yml"
 # 修改完配置保存时是否自动重连数据库
 autoReload: true
@@ -73,3 +75,44 @@ data-source:
 ```
 
 `custom-jdbcUrl` 非空时会覆盖插件按数据库类型拼接出的 JDBC 地址。除非你明确知道驱动需要什么 URL，否则优先使用 `address`、`database-name`、`params`。
+
+## 常见数据库配置
+
+本地 H2 默认配置：
+
+```yaml
+database-type: H2
+address: plugins/SakuraBind/database
+database-name: database_sakurabind
+params: ''
+```
+
+MySQL 8 示例：
+
+```yaml
+database-type: MySQL8
+address: 127.0.0.1:3306
+database-name: sakurabind
+params: '?useSSL=false&characterEncoding=utf8'
+user: sakurabind
+password: '你的密码'
+```
+
+MariaDB 示例：
+
+```yaml
+database-type: MariaDB
+address: 127.0.0.1:3306
+database-name: sakurabind
+params: '?useSSL=false'
+user: sakurabind
+password: '你的密码'
+```
+
+## 运维注意
+
+- 切换 `database-type` 后会按需下载对应驱动，离线服务器需要提前准备 `libraries`。
+- 修改 `table-prefix` 会创建一套新表，不会自动迁移旧表数据。
+- 数据库连接失败时，暂存箱、`getLost`、占位符中的遗失物品统计和数据库日志都会受影响。
+- SQLite 在部分低版本 Spigot 上会与服务端内置旧驱动冲突；遇到加载异常时优先使用 H2 或外部数据库。
+- 当前源码的 Oracle 默认 JDBC 地址拼接可能不适用于你的环境；如果使用 Oracle，建议显式填写 `custom-jdbcUrl`。

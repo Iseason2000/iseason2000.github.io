@@ -39,6 +39,13 @@ item-deny:
 
 ## 常用限制组合
 
+默认配置中 `item-deny.craft` 是 `true`，绑定物品默认不能参与合成。如果你的玩法允许绑定物品合成，需要改成：
+
+```yaml
+item-deny:
+  craft: false
+```
+
 只允许物主操作绑定物品：
 
 ```yaml

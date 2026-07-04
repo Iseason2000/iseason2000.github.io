@@ -194,3 +194,11 @@ enable-setting-permission-check: true
 ```
 
 开启后可以用类似 `sakurabind.settings.item-deny.drop.false` 的权限覆盖布尔配置。
+
+处理取消丢弃导致的物品丢失：
+
+```yaml
+replace-cancel-drop-event: bind-item
+```
+
+`bind-item` 只处理绑定物品，影响面较小；`all` 会尝试处理全部物品，可能和其他限制类插件产生交互，建议只在确认需要时使用。
