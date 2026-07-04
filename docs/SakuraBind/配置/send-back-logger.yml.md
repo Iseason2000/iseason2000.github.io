@@ -4,44 +4,25 @@ sidebar_position: 8
 
 # send-back-logger.yml
 
-> 物品送回日志，记录谁的物品在什么时候以什么方式送回
+物品送回日志记录“谁的物品在什么时候通过什么途径送回”。日志可输出到控制台、独立文件和数据库；数据库记录位于 `SendBackLogs` 表。
 
+当前默认配置中日志总开关关闭，需要时手动开启。
 
-
-每个送回行为都有自己的枚举，在 `send-back-type-description` 中
-
-
-
-支持将绑定信息输出到`控制台`、`独立文件`、`数据库`中。
-
-
-
-其中数据库需要你自己使用第三方工具查看，位于`SendBackLogs` 表中
-
-
-
-输出到`控制台`的送回日志不支持 `lang.yml` 中的格式，仅输出格式化后的信息，但是支持相同的**颜色代码**
-
-
-
----
-
-~~~ yaml title="send-back-logger.yml"
-
+```yaml title="send-back-logger.yml"
 # 物品送回日志系统
 readme: ''
 
 # 总开关
-enable: true
+enable: false
 
 # 将物品送回输出到控制台
 console: true
 
 # 将物品送回输出到数据库中，可跨服
-database: true
+database: false
 
 # 将物品送回输出到独立的文件中
-file: true
+file: false
 
 # 独立的文件的位置,修改需重启生效
 file-path: plugins\SakuraBind\log\send-back-log-%g-%u.log
@@ -69,10 +50,9 @@ send-back-type-description:
 filter: []
 
 # 日志显示格式
-format: '[物品送回] 物主: {0} 类型: {1} 目标: {2} 物品: {3}'
+format: '[物品送回] 物主: {0} 类型: {1} 途径: {2} 物品: {3}'
 
 # 物品显示格式, 替换上面format的 {3}
 # 占位符分别为 类型、名字、数量、子ID
 format-item: 物品 {0}{3} {1} x {2}
-
-~~~
+```

@@ -26,7 +26,7 @@ sidebar_position: 7
 
 ---
 
-~~~ yaml title="lang.yml"
+~~~ yaml title="logger.yml"
 
 # 日志系统，用于记录绑定信息
 readme: ''
@@ -46,7 +46,7 @@ file: false
 # 独立的文件的位置,修改需重启生效
 file-path: plugins\SakuraBind\log\bind-log-%g-%u.log
 
-# 独立的文件的最大数量，每个1M,修改需重启生效
+# 独立的文件的最大数量，每个5M,修改需重启生效
 file-max-count: 10
 
 # 日志忽略特定绑定类型, 从下面选

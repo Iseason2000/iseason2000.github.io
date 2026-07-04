@@ -6,6 +6,28 @@ sidebar_position: 4
 
 > 该配置通过配置匹配器来为某一类物品应用不同的物品设置，可以绑定特定物品
 
+`settings.yml` 是最常改的配置文件。你可以把它理解为：
+
+1. 用 `match` 找出“哪些物品属于这一类”。
+2. 用 `settings` 定义“这一类物品绑定后如何限制、如何自动绑定、如何送回”。
+
+## 最小示例
+
+```yaml
+matchers:
+  my_sword:
+    match:
+      material: '.*_SWORD'
+    settings:
+      auto-bind:
+        enable: true
+        onClick: true
+      item-deny:
+        drop@: true
+```
+
+这个配置表示：任意剑被点击时自动绑定，非物主不能丢弃，物主可以丢弃。
+
 
 
 :::tip[注意]
@@ -30,6 +52,14 @@ matchers:
 ~~~
 
 每个匹配器分为 `匹配器ID`、`匹配节点`、`配置节点` 三部分，缺一不可
+
+如果只想测试匹配，不想真的绑定，可以使用：
+
+```text
+/sakurabind test tryMatch <匹配器ID>
+```
+
+该命令会逐项输出匹配结果，适合排查正则、材质名、NBT 路径是否写错。
 
 ## 匹配器ID
 
@@ -86,9 +116,44 @@ matchers:
 
 ## 配置节点
 
-配置节点可以覆盖 `global-setting,yml` 中的同名配置，为该匹配器配置特殊的配置，比如自动绑定。
+配置节点可以覆盖 `global-setting.yml` 中的同名配置，为该匹配器配置特殊的配置，比如自动绑定。
 
-同 `global-settting.yml` 以 `@` 结尾的布尔类型的项，其物主将使用与他人相反的设置
+同 `global-setting.yml` 以 `@` 结尾的布尔类型的项，其物主将使用与他人相反的设置。
+
+常用配置节点：
+
+| 节点 | 用途 |
+| --- | --- |
+| `item.lore` | 绑定后显示的 lore |
+| `item-deny.*` | 禁止丢弃、拿取、合成、铁砧、放入容器等行为 |
+| `auto-bind.*` | 自动绑定触发点 |
+| `auto-unbind.*` | 自动解绑触发点 |
+| `block-deny.*` | 方块绑定后的破坏、放置、互动限制 |
+| `entity.*` / `entity-deny.*` | 实体绑定显示名、AI、伤害、交互、掉落规则 |
+| `module.unique-item` | 唯一物品防刷数量 |
+
+未写的节点会继承 `global-setting.yml`。
+
+## 匹配缓存
+
+插件会把已绑定物品命中的匹配器键写入 NBT：
+
+```yaml
+nbt-cache-path: sakura_bind_setting_cache
+```
+
+优点是读取设置更快；缺点是不同配置缓存键不同，会影响物品堆叠。修改匹配器名称后，旧物品可能仍带着旧缓存，插件发现配置不存在时会重新匹配并更新缓存。
+
+## 常见错误
+
+| 问题 | 处理 |
+| --- | --- |
+| 物品没自动绑定 | 确认 `auto-bind.enable: true`，并至少开启一个触发项，如 `onClick` 或 `onScanner` |
+| 正则匹配不到 | 用 `/sakurabind test tryMatch <匹配器ID>` 看实际值 |
+| 自定义名匹配不到原版物品名 | `name` 只匹配自定义名，不匹配创造栏里的原版翻译名 |
+| `materials` 没生效 | 材质名必须是 Bukkit `Material` 全名，例如 `DIAMOND_SWORD` |
+| `materialIds` 写成 `materialId` | 当前匹配器识别的是 `materialIds` |
+| 多个匹配器都能匹配 | 文件中靠前的匹配器先命中 |
 
 ## 示例
 
@@ -222,7 +287,7 @@ matchers:
       material: BOW|BOOKSHELF
       materials:
       - DIAMOND_SWORD
-      materialId:
+      materialIds:
       - SPECIAL:2
       ids:
       - '6578'
