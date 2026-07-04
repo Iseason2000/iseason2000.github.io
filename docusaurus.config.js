@@ -23,7 +23,6 @@ const config = {
   projectName: 'Iseason2000', // Usually your repo name.
   deploymentBranch: 'main',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   trailingSlash: 'false',
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -31,6 +30,13 @@ const config = {
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans'],
+  },
+
+  markdown: {
+    mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
 
   presets: [
@@ -45,21 +51,7 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -138,8 +130,21 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
-    themes: [
-    // ... Your other themes.
+  plugins: [
+    [
+      '@docusaurus/plugin-ideal-image',
+      /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
+      ({
+        quality: 70,
+        max: 1030,
+        min: 640,
+        steps: 2,
+        disableInDev: false,
+      }),
+    ],
+  ],
+  themes: [
+    '@docusaurus/theme-mermaid',
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
@@ -147,6 +152,7 @@ const config = {
         // ... Your options.
         // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
+        indexBlog: false,
         // For Docs using Chinese, The `language` is recommended to set to:
         // ```
         language: ["en", "zh"],

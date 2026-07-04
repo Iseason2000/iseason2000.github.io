@@ -82,6 +82,9 @@ item-deny:
 
 ## 当前默认配置
 
+<details>
+<summary>展开查看完整默认配置</summary>
+
 ```yaml title="global-setting.yml"
 # 本配置为绑定的全局权限设置，优先级最低
 # 在布尔类型的选项之后加上@则表示对于物主采取相反的结果,部分没有提示消息的无效
@@ -308,5 +311,7 @@ addons:
   # 禁止 绑定物品 被 mcMMO 技能缴械
   mcmmo-disarm: false
 ```
+
+</details>
 
 `item-deny.pickup` 是捡起时送回物主的前提。只开启 `item.send-back-on-pickup` 不会单独阻止玩家捡起。

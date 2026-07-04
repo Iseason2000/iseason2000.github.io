@@ -14,6 +14,9 @@
   --ifm-color-primary-lighter: #d4b84f;
   --ifm-color-primary-lightest: #ffe066;
   --ifm-code-font-size: 95%;
+  --ifm-line-height-base: 1.78;
+  --ifm-table-cell-padding: 0.72rem 0.9rem;
+  --ifm-leading: 1rem;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -27,4 +30,49 @@
   --ifm-color-primary-lighter: #d4b84f;
   --ifm-color-primary-lightest: #ffe066;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.theme-doc-markdown {
+  font-size: 0.98rem;
+}
+
+.theme-doc-markdown h2 {
+  margin-top: 2.25rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.theme-doc-markdown h3 {
+  margin-top: 1.6rem;
+}
+
+.theme-doc-markdown table {
+  display: table;
+  width: 100%;
+  margin: 1rem 0 1.25rem;
+}
+
+.theme-doc-markdown th {
+  white-space: nowrap;
+}
+
+.theme-doc-markdown details {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.theme-doc-markdown details > summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.theme-doc-markdown .alert {
+  border-radius: 8px;
+}
+
+.theme-doc-markdown code {
+  border-radius: 4px;
 }

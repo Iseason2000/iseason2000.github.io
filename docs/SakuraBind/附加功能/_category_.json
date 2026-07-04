@@ -3,6 +3,6 @@
   "position": 11,
   "link": {
     "type": "generated-index",
-    "description": "其他可选功能"
+    "description": "绑定道具、自动解绑、数据迁移和唯一物品等可选模块"
   }
 }
