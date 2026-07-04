@@ -1,55 +1,79 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Global CSS for the Docusaurus site.
+ * Palette: Tailwind Orange + Zinc. Keep overrides minimal.
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #ffb851;
-  --ifm-color-primary-dark: #cc903d;
-  --ifm-color-primary-darker: #b07b34;
-  --ifm-color-primary-darkest: #9f6f2f;
-  --ifm-color-primary-light: #b8a34b;
-  --ifm-color-primary-lighter: #d4b84f;
-  --ifm-color-primary-lightest: #ffe066;
+  --ifm-color-primary: #fb923c;
+  --ifm-color-primary-dark: #f97316;
+  --ifm-color-primary-darker: #ea580c;
+  --ifm-color-primary-darkest: #c2410c;
+  --ifm-color-primary-light: #fdba74;
+  --ifm-color-primary-lighter: #fed7aa;
+  --ifm-color-primary-lightest: #ffedd5;
+  --ifm-color-primary-contrast-background: #fff7ed;
+  --ifm-color-primary-contrast-foreground: #431407;
+
+  --ifm-color-gray-0: #ffffff;
+  --ifm-color-gray-100: #fafafa;
+  --ifm-color-gray-200: #f4f4f5;
+  --ifm-color-gray-300: #e4e4e7;
+  --ifm-color-gray-400: #d4d4d8;
+  --ifm-color-gray-500: #a1a1aa;
+  --ifm-color-gray-600: #71717a;
+  --ifm-color-gray-700: #52525b;
+  --ifm-color-gray-800: #3f3f46;
+  --ifm-color-gray-900: #27272a;
+  --ifm-color-gray-1000: #18181b;
+
+  --ifm-background-color: #fafafa;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-code-background: #f4f4f5;
   --ifm-code-font-size: 95%;
-  --ifm-line-height-base: 1.78;
+  --ifm-line-height-base: 1.75;
   --ifm-table-cell-padding: 0.72rem 0.9rem;
-  --ifm-leading: 1rem;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-table-head-background: #f4f4f5;
+  --ifm-table-stripe-background: #fafafa;
+  --ifm-table-border-color: #e4e4e7;
+  --ifm-menu-color-active: #ea580c;
+  --ifm-menu-color-background-active: #ffedd5;
+  --ifm-navbar-link-hover-color: #f97316;
+  --docusaurus-highlighted-code-line-bg: rgba(251, 146, 60, 0.14);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #f0ae4e;
-  --ifm-color-primary-dark: #cc903d;
-  --ifm-color-primary-darker: #b07b34;
-  --ifm-color-primary-darkest: #9f6f2f;
-  --ifm-color-primary-light: #b8a34b;
-  --ifm-color-primary-lighter: #d4b84f;
-  --ifm-color-primary-lightest: #ffe066;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #fdba74;
+  --ifm-color-primary-dark: #fb923c;
+  --ifm-color-primary-darker: #f97316;
+  --ifm-color-primary-darkest: #ea580c;
+  --ifm-color-primary-light: #fed7aa;
+  --ifm-color-primary-lighter: #ffedd5;
+  --ifm-color-primary-lightest: #fff7ed;
+  --ifm-color-primary-contrast-background: #431407;
+  --ifm-color-primary-contrast-foreground: #fff7ed;
+
+  --ifm-background-color: #18181b;
+  --ifm-background-surface-color: #27272a;
+  --ifm-font-color-base: #e4e4e7;
+  --ifm-font-color-secondary: #a1a1aa;
+  --ifm-code-background: #3f3f46;
+  --ifm-table-head-background: #27272a;
+  --ifm-table-stripe-background: #1f1f23;
+  --ifm-table-border-color: #3f3f46;
+  --ifm-menu-color-active: #fed7aa;
+  --ifm-menu-color-background-active: rgba(251, 146, 60, 0.16);
+  --ifm-navbar-link-hover-color: #fed7aa;
+  --docusaurus-highlighted-code-line-bg: rgba(253, 186, 116, 0.2);
 }
 
 .theme-doc-markdown {
   font-size: 0.98rem;
 }
 
-.theme-doc-markdown h2 {
-  margin-top: 2.25rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--ifm-toc-border-color);
-}
-
-.theme-doc-markdown h3 {
-  margin-top: 1.6rem;
-}
-
 .theme-doc-markdown table {
-  display: table;
+  display: block;
   width: 100%;
-  margin: 1rem 0 1.25rem;
+  overflow-x: auto;
 }
 
 .theme-doc-markdown th {
@@ -58,21 +82,4 @@
 
 .theme-doc-markdown details {
   margin: 1rem 0;
-  padding: 0.9rem 1rem;
-  border: 1px solid var(--ifm-toc-border-color);
-  border-radius: 8px;
-  background: var(--ifm-background-surface-color);
-}
-
-.theme-doc-markdown details > summary {
-  cursor: pointer;
-  font-weight: 650;
-}
-
-.theme-doc-markdown .alert {
-  border-radius: 8px;
-}
-
-.theme-doc-markdown code {
-  border-radius: 4px;
 }
