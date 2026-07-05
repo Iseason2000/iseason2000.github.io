@@ -19,7 +19,6 @@ sidebar_position: 2
 | `send-back-queue` | 推荐至少包含 `database` |
 | `enable-setting-permission-check` | 不需要权限覆盖配置时保持 `false`，减少权限系统依赖 |
 | `setting-cache-size` | 建议约等于“在线玩家数 × 背包槽位数”，大型服可增大 |
-| `replace-cancel-drop-event` | 有“取消丢弃导致物品消失”问题时再开启 |
 
 遗失物品会按 `send-back-queue` 顺序送回。某一种途径放不下时，剩余物品会继续尝试下一个途径。
 
@@ -137,12 +136,13 @@ setting-cache-time: 3500
 # 本插件提供在这种情况将物品找回的功能（按照send-back-queue的顺序）
 # 有以下几种模式:
 # none：关闭功能  bind-item：仅绑定物品  all：全部物品(有些插件取消事件的优先级较高可能会失效)
+# 默认 none，可降低与服务端核心或其他插件冲突时造成复制问题的风险
 replace-cancel-drop-event: none
 ```
 
-:::tip[运行目录差异]
+:::tip[旧配置不会被覆盖]
 
-如果旧配置已经存在，插件会补全缺失键，但不会覆盖你改过的值。例如当前测试运行目录里的 `replace-cancel-drop-event` 是 `bind-item`，源码默认值是 `none`。
+如果旧版本已经生成过 `config.yml`，插件会补全缺失键，但不会覆盖已有值。
 
 :::
 
@@ -194,11 +194,3 @@ enable-setting-permission-check: true
 ```
 
 开启后可以用类似 `sakurabind.settings.item-deny.drop.false` 的权限覆盖布尔配置。
-
-处理取消丢弃导致的物品丢失：
-
-```yaml
-replace-cancel-drop-event: bind-item
-```
-
-`bind-item` 只处理绑定物品，影响面较小；`all` 会尝试处理全部物品，可能和其他限制类插件产生交互，建议只在确认需要时使用。
