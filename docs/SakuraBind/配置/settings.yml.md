@@ -117,6 +117,8 @@ matchers:
 | mmoitems-type        | String 或 StringList  | 匹配MMOItems物品Type 格式为 `Type` 特殊，填`all`匹配所有物品 |
 | itemsadder           | String 或 StringList  | 匹配ItemsAdder物品，格式为 `namespace:id` 特殊，填`all`匹配所有物品 |
 | itemsadder-namespace | String 或 StringList  | 匹配ItemsAdder命名空间，格式为 `namespace` 特殊，填`all`匹配所有物品 |
+| neigeitems           | String 或 StringList  | 匹配NeigeItems物品ID；填`all`匹配所有NeigeItems物品 |
+| mythicmobs           | String 或 StringList  | 匹配MythicMobs物品ID；填`all`匹配所有MythicMobs物品 |
 | oraxen               | String 或 StringList  | 匹配oraxen物品，格式为 `物品ID` 。特殊，填`all`匹配所有物品  |
 
 **以下匹配器键互斥，不能同时生效**
@@ -148,6 +150,43 @@ matchers:
 | `module.unique-item` | 唯一物品防刷数量 |
 
 未写的节点会继承 `global-setting.yml`。
+
+## 第三方物品示例
+
+按插件物品 ID 匹配时，对应软依赖必须已经安装并成功加载。ID 列表是精确匹配，`all` 则匹配该插件识别出的所有物品。
+
+```yaml
+matchers:
+  neige_rewards:
+    match:
+      neigeitems:
+      - example_sword
+      - example_pack_item
+    settings:
+      auto-bind:
+        enable: true
+        onNeigeItemsGive: true
+
+  mmo_drops:
+    match:
+      mmoitems:
+      - SWORD:FLAME_SWORD
+    settings:
+      auto-bind:
+        enable: true
+        onMMOItemsDrop: true
+
+  mythic_drops:
+    match:
+      mythicmobs:
+      - SkeletonKingSword
+    settings:
+      auto-bind:
+        enable: true
+        onMythicMobDeath: true
+```
+
+`onNeigeItemsGive` 同时覆盖单个物品与物品包给予；`onMMOItemsDrop` 只处理 MMOItems 掉落表事件；`onMythicMobDeath` 处理有玩家击杀者的 MythicMobs 死亡事件及其实际掉落列表，也用于 NeigeItems 生成的 MythicMobs 普通掉落和钓鱼掉落。
 
 ## 匹配缓存
 
@@ -278,6 +317,10 @@ matchers:
 # MMOItems 有2个特殊的值 mmoitems: all 或 mmoitems-type: all 表示匹配所有MMOItems物品
 # ItemsAdder 有2个项：itemsadder 和 itemsadder-namespace, 前者匹配 namespace:id 的物品id，后者只匹配 namespace , 请使用 List类型
 # ItemsAdder 有2个特殊的值 itemsadder: all 或 itemsadder-namespace: all 表示匹配所有ItemsAdder物品
+# NeigeItems 有1个项：neigeitems, 匹配 NeigeItems 物品ID, 请使用 List类型
+# NeigeItems 有1个特殊的值 neigeitems: all 表示匹配所有 NeigeItems 物品
+# MythicMobs 有1个项：mythicmobs, 匹配 MythicMobs 物品ID, 请使用 List类型
+# MythicMobs 有1个特殊的值 mythicmobs: all 表示匹配所有 MythicMobs 物品
 # Oraxen 有1个项：oraxen, 匹配 Oraxen 物品ID, 请使用 List类型
 # Oraxen 有1个特殊的值 oraxen: all 表示匹配所有 Oraxen 物品
 # 注：以上的 mmoitems 和 mmoitems-type 互斥，itemsadder 和 itemsadder-namespace 互斥。互斥就是只能同时存在其中一个

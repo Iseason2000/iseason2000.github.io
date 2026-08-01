@@ -13,6 +13,7 @@ sidebar_position: 2
 | 配置 | 建议 |
 | --- | --- |
 | `block-listener` | 不绑定方块时保持 `false`，需要方块绑定时再开启并重启 |
+| `block-cache-backup` | 默认开启；每 5 分钟轮换备份方块绑定缓存，修改后重启 |
 | `entity-listener` | 不绑定实体时保持 `false`，需要刷怪蛋/实体绑定时再开启并重启 |
 | `scanner-period` | 需要自动绑定、扫描送回时保持大于 `0`；玩家多时不要设太低 |
 | `send-back-database` | 建议保持 `true`，作为送回失败的兜底 |
@@ -44,6 +45,13 @@ login-message-delay: 100
 
 # 方块物品检测开关，需要重启生效。打开才能支持方块物品，同时性能损耗也会增加
 block-listener: false
+
+# 方块绑定缓存定时备份与 JVM 异常退出自动恢复设置，需要重启生效
+block-cache-backup:
+  # 是否启用方块绑定缓存双快照备份与自动恢复
+  enable: true
+  # 方块绑定缓存备份周期，单位分钟，必须大于 0
+  interval-minutes: 5
 
 # 实体检测开关，需要重启生效。打开才能支持实体绑定，同时性能损耗也会增加
 entity-listener: false
@@ -168,6 +176,20 @@ entity-listener: true
 ```
 
 修改后重启服务端。
+
+### 方块缓存备份
+
+`block-cache-backup` 默认使用 `a`、`b` 两个快照轮换保存方块绑定数据。服务端正常关闭时还会再保存一次；只有带完整完成标记的快照才会参与恢复。
+
+插件通过 `backup/block-cache/running.marker` 判断上一次 JVM 是否异常退出。下次启动时，只有“检测到异常退出且主缓存为空”才会从最新有效快照恢复；如果主缓存仍有数据，则保留主缓存并跳过恢复。恢复后，已加载世界中位置为空气的记录会从缓存中移除；未加载或不存在的世界不会在这一步清理。
+
+```yaml
+block-cache-backup:
+  enable: true
+  interval-minutes: 5
+```
+
+此功能和 `block-listener` 是两个独立开关；未使用方块绑定时可以关闭备份。两个配置的修改都需要重启。
 
 使用 SweetMail 作为送回途径：
 

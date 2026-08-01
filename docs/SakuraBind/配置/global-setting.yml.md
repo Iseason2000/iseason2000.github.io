@@ -80,6 +80,18 @@ item-deny:
 
 该项只在服务器没有开启死亡不掉落规则时参与处理。
 
+## 第三方插件自动绑定
+
+以下触发项都要求目标物品匹配到的设置中同时存在 `auto-bind.enable: true`。建议把它们写进 `settings.yml` 的具体匹配器，不要全局开启：
+
+| 配置键 | 触发时机 | 绑定对象 |
+| --- | --- | --- |
+| `auto-bind.onNeigeItemsGive` | NeigeItems 物品或物品包给予事件 | 接收物品的玩家 |
+| `auto-bind.onMMOItemsDrop` | MMOItems 掉落表生成物品 | 挖掘者或击杀者（事件来源必须是玩家） |
+| `auto-bind.onMythicMobDeath` | MythicMobs 生物死亡，或 NeigeItems 生成 MythicMobs 普通/钓鱼掉落 | 玩家击杀者或 NeigeItems 掉落接收者 |
+
+拥有 `sakurabind.bypass.all` 的玩家会跳过这些自动绑定。带有 `auto-bind-nbt` 的物品也会在这些事件中尝试绑定，即使对应触发键为 `false`，但仍要求 `auto-bind.enable: true`。
+
 ## 当前默认配置
 
 <details>
@@ -262,6 +274,12 @@ auto-bind:
   onEquipWear: false
   # 扫描器扫描时绑定(在config.yml中配置扫描器)
   onScanner: false
+  # 通过 NeigeItems 物品或物品包给予指令生成物品时绑定
+  onNeigeItemsGive: false
+  # 通过 MMOItems 掉落表生成物品时绑定给挖掘者或击杀者
+  onMMOItemsDrop: false
+  # MythicMobs 生物死亡时将实际掉落物绑定给玩家击杀者
+  onMythicMobDeath: false
 
 # 自动解绑设置(前提是已经绑定)
 auto-unbind:

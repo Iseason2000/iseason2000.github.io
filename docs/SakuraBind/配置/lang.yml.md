@@ -153,6 +153,9 @@ auto-bind:
   onLeft: '&a此物品已绑定你的灵魂!'
   onRight: '&a此物品已绑定你的灵魂!'
   onEquiped: '&a你刚刚装备的物品已绑定'
+  onNeigeItemsGive: '&a给予你的物品已绑定你的灵魂!'
+  onMMOItemsDrop: '掉落表生成的物品已绑定你的灵魂!'
+  onMythicMobDeath: '&a生物的掉落物已绑定你的灵魂!'
 auto-unbind:
   onClick: '&6此物品已解除绑定!'
   onPickup: '&6此物品已解除绑定!'
@@ -223,6 +226,8 @@ command:
     try-match-nbt: '&a  - NBT: &f{0} -> &7{1} = &6{2} &7路径: {3}'
     try-match-mmoitems: '&a  - MMOItems: &f{0} -> &7{1} = &6{2}'
     try-match-itemsadder: '&a  - ItemsAdder: &f{0} -> &7{1} = &6{2}'
+    try-match-neigeitems: '&a  - NeigeItems: &f{0} -> &7{1} = &6{2}'
+    try-match-mythicmobs: '&a  - MythicMobs: &f{0} -> &7{1} = &6{2}'
     try-match-oraxen: '&a  - Oraxen: &f{0} -> &7{1} = &6{2}'
     try-match-result: '&6匹配结束, 结果: &6{0}'
   callback-on: '&a已开启物品召回模式，绑定您的物品将会陆续返回，再次输入命令关闭'
